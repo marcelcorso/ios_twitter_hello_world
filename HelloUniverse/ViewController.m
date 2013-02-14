@@ -11,24 +11,17 @@
 #import <Social/Social.h>
 
 @interface ViewController ()
-@property (nonatomic) ACAccountStore *accountStore;
+@property (nonatomic,strong) ACAccountStore *accountStore;
 @end
 
 @implementation ViewController
 
 @synthesize userID = _userID;
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        _accountStore = [[ACAccountStore alloc] init];
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
+    _accountStore = [[ACAccountStore alloc] init];
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -50,7 +43,6 @@
     //  Step 0: Check that the user has local Twitter accounts
     if ([self userHasAccessToTwitter]) {
         NSLog(@"userHasAccessToTwitter");
-        
         //  Step 1:  Obtain access to the user's Twitter accounts
         ACAccountType *twitterAccountType = [self.accountStore
                                              accountTypeWithAccountTypeIdentifier:

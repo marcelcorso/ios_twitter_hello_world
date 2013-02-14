@@ -95,8 +95,6 @@
 		840DBDA716CA9272001D8EA6 = {
 			isa = PBXGroup;
 			children = (
-				843E22C016CCF6000023D149 /* Accounts.framework */,
-				843E22BE16CCF3260023D149 /* Social.framework */,
 				840DBDB916CA9272001D8EA6 /* HelloUniverse */,
 				840DBDE016CA9273001D8EA6 /* HelloUniverseTests */,
 				840DBDB216CA9272001D8EA6 /* Frameworks */,
@@ -116,6 +114,8 @@
 		840DBDB216CA9272001D8EA6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				843E22C016CCF6000023D149 /* Accounts.framework */,
+				843E22BE16CCF3260023D149 /* Social.framework */,
 				840DBDB316CA9272001D8EA6 /* UIKit.framework */,
 				840DBDB516CA9272001D8EA6 /* Foundation.framework */,
 				840DBDB716CA9272001D8EA6 /* CoreGraphics.framework */,
@@ -406,6 +406,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloUniverse/HelloUniverse-Prefix.pch";
 				INFOPLIST_FILE = "HelloUniverse/HelloUniverse-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -417,6 +418,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloUniverse/HelloUniverse-Prefix.pch";
 				INFOPLIST_FILE = "HelloUniverse/HelloUniverse-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
