@@ -18,19 +18,11 @@
 
 @synthesize userID = _userID;
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        _accountStore = [[ACAccountStore alloc] init];
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    _accountStore = [[ACAccountStore alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
