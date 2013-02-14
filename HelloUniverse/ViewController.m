@@ -55,6 +55,7 @@
         ACAccountType *twitterAccountType = [self.accountStore
                                              accountTypeWithAccountTypeIdentifier:
                                              ACAccountTypeIdentifierTwitter];
+        NSLog(@"userHasAccessToTwitter wazzup???");
         [self.accountStore
          requestAccessToAccountsWithType:twitterAccountType
          options:NULL
