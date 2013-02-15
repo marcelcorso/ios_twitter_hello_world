@@ -124,8 +124,33 @@
     NSString *greeting = [[NSString alloc] initWithFormat:@"Hello, %@!", idString];
     self.label.text = greeting;
     
+    [self sampleRequest];
+    return;
     
     [self fetchTimelineForUser:idString];
+}
+
+- (void)sampleRequest
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND,0), ^{
+        NSLog(@"ololo");
+        NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://google.com"]];
+        NSError* error;
+        NSURLResponse* response;
+        NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        NSLog(@"response %@",response);
+        if(data)
+        {
+            NSLog(@"data %@",data);
+        }
+        else
+        {
+            if (error)
+            {
+                NSLog(@"error %@",error);
+            }
+        }
+    });
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
