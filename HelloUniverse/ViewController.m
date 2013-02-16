@@ -9,9 +9,10 @@
 #import "ViewController.h"
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
+#import "Base64.h"
 
 @interface ViewController ()
-@property (nonatomic) ACAccountStore *accountStore;
+@property (nonatomic,strong) ACAccountStore *accountStore;
 @end
 
 @implementation ViewController
@@ -20,6 +21,7 @@
 
 - (void)viewDidLoad
 {
+    _accountStore = [[ACAccountStore alloc] init];
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     _accountStore = [[ACAccountStore alloc] init];
@@ -42,7 +44,6 @@
     //  Step 0: Check that the user has local Twitter accounts
     if ([self userHasAccessToTwitter]) {
         NSLog(@"userHasAccessToTwitter");
-        
         //  Step 1:  Obtain access to the user's Twitter accounts
         ACAccountType *twitterAccountType = [self.accountStore
                                              accountTypeWithAccountTypeIdentifier:
@@ -114,9 +115,8 @@
     
 }
 
-- (ACAccount *)resolveAccount
+- (void)resolveAccount: ( void ( ^ )(ACAccount *) )callback
 {
-    __block ACAccount *account = nil;
     NSLog(@"fetchTimelineForUser");
     //  Step 0: Check that the user has local Twitter accounts
     if ([self userHasAccessToTwitter]) {
@@ -139,7 +139,7 @@
                  
                  
                  // TODO allow the user to select wich account he wants to use
-                 account = [twitterAccounts lastObject];
+                 callback([twitterAccounts lastObject]);
              }
              else {
                  // Access was not granted, or an error occurred
@@ -149,13 +149,10 @@
     } else {
         NSLog(@"no access to twitter");
     }
-    
-    return account;
 }
 
-- (NSArray *)fetchFriends:(ACAccount *)account
+- (void)fetchFriends:(ACAccount *)account withCallback:( void ( ^ )(NSArray *) )callback
 {
-    __block NSArray *friendIds = [NSArray array];
     NSString *screenName = [account username];
     NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1.1/friends/ids.json"];
     NSDictionary *params = @{@"screen_name" : screenName,
@@ -185,8 +182,10 @@
                  options:NSJSONReadingAllowFragments error:&jsonError];
                 
                 if (friendsData) {
-                    NSLog(@"Timeline Response: %@\n", friendsData);
-                    friendIds = [friendsData valueForKey:@"friends"];
+                    NSLog(@"Friends Response: %@\n", friendsData);
+                    NSArray *friendIds = [friendsData valueForKey:@"ids"];
+                    
+                    callback(friendIds);
                 }
                 else {
                     // Our JSON deserialization went awry
@@ -199,26 +198,83 @@
             }
         }
     }];
-
-    return friendIds;
 }
 
-- (NSArray *) fetchUsers:(NSArray *)friendIds
+- (void) fetchUsers:(NSArray *)friendIds
 {
-    NSArray *matchedUsers = [NSArray array];
+     NSLog(@"fetchUsers: ");
     // request http://pre.shuffler.fm/users.json?twitter_id=4,5,6,7
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND,0), ^{
+        NSString *joinedIds = [friendIds componentsJoinedByString:@","];
+        // NSMutableString *url = [NSMutableString stringWithFormat: @"http://pre.shuffler.fm/users.json?twitter_id=%@", joinedIds];
+        NSMutableString *url = [NSMutableString stringWithFormat: @"http://10.0.1.19:3000/users.json?twitter_id=%@", joinedIds];
+        NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: url]];
+        
+        NSString *authStr = [NSString stringWithFormat:@"%@:%@", @"shuffler", @"a-very-nice-password"];
+        NSData *authData = [authStr dataUsingEncoding:NSASCIIStringEncoding];
+        NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64EncodedStringWithWrapWidth:80]];
+        [request setValue:authValue forHTTPHeaderField:@"Authorization"];
+        
+        NSError* error;
+        NSURLResponse* response;
+        NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        NSLog(@"fetchUsers: data");
+        
+        if(data)
+        {
+            NSError *jsonError;
+            NSArray *users =
+            [NSJSONSerialization
+             JSONObjectWithData:data
+             options:NSJSONReadingAllowFragments error:&jsonError];
+            
+            NSLog(@"rendoreee");
+            NSString* newStr = [[NSString alloc] initWithData:data
+                                                      encoding:NSUTF8StringEncoding];
+            NSLog(@"data: %@", newStr);
+            
+            [self renderUsers:users];
+        }
+        else
+        {
+            if (error)
+            {
+                NSLog(@"error %@",error);
+            }
+        }
+    });
     
 }
 
+- (void)renderUsers:(NSArray *)users
+{
+    NSLog(@"render usors %@", users);
+}
 
 - (void)matchFriends
 {
     // find out what twitter account to get the friends from
-    ACAccount *account = [self resolveAccount];
-    // request N twitter friends
-    NSArray *friendIds = [self fetchFriends:account];
-    // request the shuffler users with those twitter_ids
-    NSArray *matchedUsers = [self fetchUsers:friendIds];
+    [self resolveAccount:^(ACAccount *account) {
+        if (account != nil) {
+            
+            // request N twitter friends
+            [self fetchFriends:account withCallback:^(NSArray *friendIds) {
+
+                // request the shuffler users with those twitter_ids
+                [self fetchUsers:friendIds];
+            }];
+            
+        } else {
+            NSLog(@"NO ACCOUNTSS MAN");
+        }
+    }];
+}
+
+- (void)a: ( void ( ^ )(NSString *) )theBlock
+{
+    theBlock(@"bongo");
 }
 
 - (IBAction)changeGreeting:(id)sender {
@@ -231,11 +287,12 @@
     NSString *greeting = [[NSString alloc] initWithFormat:@"Hello, %@!", idString];
     self.label.text = greeting;
     
-    
-    // [self fetchTimelineForUser:idString];
-    
-    
     [self matchFriends];
+
+    [self a:^(NSString *msg){
+        NSLog(@"bongo: %@", msg);
+    }];
+
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {

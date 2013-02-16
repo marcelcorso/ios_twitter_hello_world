@@ -26,6 +26,7 @@
 		840DBDE816CA9274001D8EA6 /* HelloUniverseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 840DBDE716CA9274001D8EA6 /* HelloUniverseTests.m */; };
 		843E22BF16CCF3260023D149 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843E22BE16CCF3260023D149 /* Social.framework */; };
 		843E22C116CCF6000023D149 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843E22C016CCF6000023D149 /* Accounts.framework */; };
+		843E22C416CFD6460023D149 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 843E22C316CFD6460023D149 /* Base64.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		840DBDE716CA9274001D8EA6 /* HelloUniverseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloUniverseTests.m; sourceTree = "<group>"; };
 		843E22BE16CCF3260023D149 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		843E22C016CCF6000023D149 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		843E22C216CFD6460023D149 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
+		843E22C316CFD6460023D149 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +98,6 @@
 		840DBDA716CA9272001D8EA6 = {
 			isa = PBXGroup;
 			children = (
-				843E22C016CCF6000023D149 /* Accounts.framework */,
-				843E22BE16CCF3260023D149 /* Social.framework */,
 				840DBDB916CA9272001D8EA6 /* HelloUniverse */,
 				840DBDE016CA9273001D8EA6 /* HelloUniverseTests */,
 				840DBDB216CA9272001D8EA6 /* Frameworks */,
@@ -116,6 +117,8 @@
 		840DBDB216CA9272001D8EA6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				843E22C016CCF6000023D149 /* Accounts.framework */,
+				843E22BE16CCF3260023D149 /* Social.framework */,
 				840DBDB316CA9272001D8EA6 /* UIKit.framework */,
 				840DBDB516CA9272001D8EA6 /* Foundation.framework */,
 				840DBDB716CA9272001D8EA6 /* CoreGraphics.framework */,
@@ -127,6 +130,8 @@
 		840DBDB916CA9272001D8EA6 /* HelloUniverse */ = {
 			isa = PBXGroup;
 			children = (
+				843E22C216CFD6460023D149 /* Base64.h */,
+				843E22C316CFD6460023D149 /* Base64.m */,
 				840DBDC216CA9273001D8EA6 /* AppDelegate.h */,
 				840DBDC316CA9273001D8EA6 /* AppDelegate.m */,
 				840DBDCB16CA9273001D8EA6 /* MainStoryboard_iPhone.storyboard */,
@@ -285,6 +290,7 @@
 				840DBDC016CA9273001D8EA6 /* main.m in Sources */,
 				840DBDC416CA9273001D8EA6 /* AppDelegate.m in Sources */,
 				840DBDD316CA9273001D8EA6 /* ViewController.m in Sources */,
+				843E22C416CFD6460023D149 /* Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +412,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloUniverse/HelloUniverse-Prefix.pch";
 				INFOPLIST_FILE = "HelloUniverse/HelloUniverse-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -417,6 +424,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloUniverse/HelloUniverse-Prefix.pch";
 				INFOPLIST_FILE = "HelloUniverse/HelloUniverse-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
