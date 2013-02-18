@@ -207,8 +207,8 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND,0), ^{
         NSString *joinedIds = [friendIds componentsJoinedByString:@","];
-        // NSMutableString *url = [NSMutableString stringWithFormat: @"http://pre.shuffler.fm/users.json?twitter_id=%@", joinedIds];
-        NSMutableString *url = [NSMutableString stringWithFormat: @"http://10.0.1.19:3000/users.json?twitter_id=%@", joinedIds];
+        NSMutableString *url = [NSMutableString stringWithFormat: @"http://shuffler:robot@pre.shuffler.fm/users.json?twitter_id=%@", joinedIds];
+//        NSMutableString *url = [NSMutableString stringWithFormat: @"http://10.0.1.19:3000/users.json?twitter_id=%@", joinedIds];
         NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: url]];
         
         NSString *authStr = [NSString stringWithFormat:@"%@:%@", @"shuffler", @"a-very-nice-password"];

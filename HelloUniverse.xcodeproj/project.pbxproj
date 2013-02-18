@@ -24,7 +24,7 @@
 		840DBDDD16CA9273001D8EA6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840DBDB516CA9272001D8EA6 /* Foundation.framework */; };
 		840DBDE516CA9274001D8EA6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 840DBDE316CA9274001D8EA6 /* InfoPlist.strings */; };
 		840DBDE816CA9274001D8EA6 /* HelloUniverseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 840DBDE716CA9274001D8EA6 /* HelloUniverseTests.m */; };
-		843E22BF16CCF3260023D149 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843E22BE16CCF3260023D149 /* Social.framework */; };
+		843E22BF16CCF3260023D149 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843E22BE16CCF3260023D149 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		843E22C116CCF6000023D149 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843E22C016CCF6000023D149 /* Accounts.framework */; };
 		843E22C416CFD6460023D149 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 843E22C316CFD6460023D149 /* Base64.m */; };
 /* End PBXBuildFile section */
@@ -412,8 +412,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloUniverse/HelloUniverse-Prefix.pch";
 				INFOPLIST_FILE = "HelloUniverse/HelloUniverse-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -424,8 +425,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloUniverse/HelloUniverse-Prefix.pch";
 				INFOPLIST_FILE = "HelloUniverse/HelloUniverse-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -441,6 +443,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloUniverse/HelloUniverse-Prefix.pch";
 				INFOPLIST_FILE = "HelloUniverseTests/HelloUniverseTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -458,6 +461,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloUniverse/HelloUniverse-Prefix.pch";
 				INFOPLIST_FILE = "HelloUniverseTests/HelloUniverseTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
